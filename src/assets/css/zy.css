@@ -1,0 +1,46 @@
+/*2018。01。04 zy*/
+/*忘记密码1、2*/
+.mt-45{margin-top:45px!important;}
+.mt-80{margin-top:80px!important;}
+.mb-150{margin-bottom:150px;}
+.w-180{width:180px!important;}
+.w-560{width:560px;}
+.w-600{width:600px;}
+
+.pwd_box{margin:0 auto;width: 300px;}
+.pwd_tit{width:360px;font-size:18px;color:#2b2b2b;font-weight:bold;margin: 0 auto;text-align:center;border-bottom:5px solid #ffffff;padding:55px 0 20px 0;}
+.pwd_box dl{margin-top:38px;font-size:14px;width:300px;position: relative}
+.pwd_box dl dt.login_d1{width:80px;height:38px;line-height:38px;color:#2b2b2b;text-align:right;font-weight:bold;position: absolute;left:-90px;}
+.pwd_box dl dt.login_d2{width:200px;height:38px;line-height:38px;position: absolute;left: 320px;top:0}
+.pwd_box dl dd{width:300px;}
+.pwdInp{border: 1px solid #b9bbca;border-radius: 3px;height:38px;line-height:38px;color:#81828e;font-size:12px;padding:0 10px;box-sizing: border-box;font-weight:bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis}
+.pwdInp.focus{border: 1px solid #3ba6f1;}
+.pwdInp.error{border: 1px solid #f15040;}
+.errorTips{color:#f15040;font-size:12px;font-style: normal;font-weight:bold;}
+.yzm_img{display:inline-block;width:96px;height:32px;margin:3px 0}
+.get_yzm{display: inline-block;width:110px;height:38px;color:#ffffff;background:#3ba6f1;text-align: center;line-height: 38px;border-radius: 3px;font-weight: bold;}
+.get_yzm:hover{background:#6bb9ef}
+.get_yzm:active{background: #0c7bc7}
+.pwd_next{display: inline-block;width:300px;height:38px;color:#ffffff;background:#3ba6f1;text-align: center;line-height: 38px;border-radius: 3px;font-weight: bold;font-size:16px;}
+.pwd_next:hover{background:#6bb9ef}
+.pwd_next:active{background: #0c7bc7}
+.pwd_box.w-600 dl dd{width:500px;}
+
+/*登录*/
+.login_box{width:100%;height: 100%;}
+.login_box>img{position: fixed;width: 100%;height: 100%;top:0;left: 0;z-index: -1}
+.login_main{width:370px;position:absolute;left:0;right:0;top:50%;margin:-235px auto 0 auto;font-size: 14px;}
+.login_logo{width:180px;height:114px;background: url(../images/login_logo.png) no-repeat center;margin: 0 auto;}
+.login_inp{position: relative;width:370px;height:45px;margin-top:30px;}
+.login_inp input{width:100%;height:100%;line-height:45px;background: #ffffff;border-radius: 3px;border:none;box-sizing: border-box;padding-left: 80px;padding-right:10px;font-size:12px;color:#81828e;font-weight:bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis}
+.login_inp i{display: inline-block;width: 11px;height:14px;position:absolute;top:15px; left: 20px;}
+.login_inp i.login_num{background: url(../images/login_zhanghao.png) center no-repeat;}
+.login_inp i.login_pwd{background: url(../images/login_mima.png) center no-repeat;}
+.login_inp span{display: inline-block;position:absolute;top:13px; left: 41px;font-weight: bold;}
+.login_blue{color:#3ba6f1;font-weight: bold;font-size:12px;}
+.login_blue:hover{text-decoration: underline}
+.login_btn_zy{display:block;width:160px;height:36px;line-height:36px;text-align: center;color:#ffffff;font-size:16px;font-weight: bold;background:#3ba6f1;border-radius: 18px;margin:30px auto 0 auto;}
+.login_btn_zy:hover{background:#6bb9ef}
+.login_btn_zy:active{background: #0c7bc7}
+
+

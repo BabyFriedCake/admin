@@ -1,0 +1,36 @@
+@charset "utf-8";
+/* pagination */
+.pagebox{text-align: center;}
+.pagination{font-size:80%;text-align: center;margin:0 auto;display: inline-block;}
+.pagination a{text-decoration:none;color:#15B;}
+.pagination a,.pagination span{width:21px;height:21px;line-height:21px;margin-right:10px;display:inline-block;vertical-align:middle;font-size: 12px;color: #585858;border:1px solid #dcdde8;border-radius:3px;}
+.pagination .current{color:#ffffff;background: #279afc;border:1px solid #279afc}
+.pagination .current.prev{background: url(../images/page_prev.png) no-repeat -19px 0;border:1px solid #dcdde8}
+.pagination .current.prev:hover{background: url(../images/page_prev.png) no-repeat -19px 0;border:1px solid #dcdde8;cursor:not-allowed}
+.pagination .prev{width:27px;background: url(../images/page_prev.png) no-repeat -19px 0;}
+.pagination .prev:hover{background:url(../images/page_prev.png) #279afc no-repeat 2px 0;}
+.pagination .current.prev.disabled{display: none}
+.pagination .prev.disabled{display: none}
+.pagination a:hover,.pagination span:hover{background-color: #279afc;color:#ffffff;border:1px solid #279afc}
+/*.pagination a.next{width:27px;background-color: transparent;}*/
+.next,.prev{text-indent: -9999px; }
+.pagination .current.next{background:url(../images/page_next.png) no-repeat -19px 0;border:1px solid #dcdde8}
+.pagination .current.next:hover{background:url(../images/page_next.png) no-repeat -19px 0;border:1px solid #dcdde8;cursor: not-allowed}
+.pagination .next{width:27px;background:url(../images/page_next.png) no-repeat -19px 0;}
+.pagination .next:hover{background:url(../images/page_next.png) #279afc no-repeat 2px 0;}
+/*.next + span{}*/
+.pagination .next + .prev.disabled{display: none}
+.pagination .next + .current.prev.disabled{display: none}
+.total_page{font-size: 12px;}
+.next,.prev{width:12px;height:16px;}
+.pagination a+span{border:none}
+.pagination a+span:hover{border:none;background: none;color:#585858}
+.pagination a+span.current{border:1px solid #279afc}
+.pagination a+span.current:hover{border:1px solid #279afc;background: #279afc;color:#ffffff}
+
+
+
+
+
+
+

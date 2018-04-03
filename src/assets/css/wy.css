@@ -1,0 +1,55 @@
+@charset "utf-8";
+p{line-height: 1;}
+/* 注册页面 start*/
+.mt3{margin-top: 3px;}
+.center_w{margin: 0 auto;}
+.header_w{width:100%;height: 70px;background: #fff;border-bottom:1px solid #dcdcdc;padding:18px 0;box-sizing: border-box;}
+.wrap_w{width: 1200px;margin: 0 auto;}
+.logo_w{float: left;margin-right: 20px;}
+.name_w{float:left;font-size: 20px;color:#2b2b2b;font-weight: bold;padding-left: 20px;border-left:1px solid #dcdcdc;height: 30px;line-height: 30px;margin-top: 2px;}
+.headerR_w{float: right;font-size: 12px;color:#81828e;}
+.headerR_w a{font-size: 12px;color:#3ba6f1;line-height: 34px;}
+.headerR_w a:hover{text-decoration: underline;}
+.footer_w{width:100%;height: 50px;line-height: 50px;text-align: center;background: #fff;font-size: 12px;color:#8a8a8a;font-family: "宋体";}
+.main_w{width: 100%;background: #f3faff url(../images/shadowW.png) center -18px no-repeat;min-height: 100%;}
+.stepNL_w{padding: 60px 42px;background: url(../images/step1W.png) center 87px no-repeat;width: 444px;margin: 0 auto;height: 147px;box-sizing: border-box;}
+.stepNL_w li{float: left;width: 120px;text-align: center;height: 27px;font-size: 14px;color:#2b2b2b;font-weight: bold;}
+.inputBox{width: 298px;margin: 0 auto;}
+.inputBox li{position: relative;padding-bottom: 38px;}
+.inputBox li span{position: absolute;left:-80px;line-height: 38px;display: block;width: 80px;padding-right:10px;box-sizing: border-box;text-align: right;font-size: 14px;color:#2b2b2b;font-weight: bold;}
+.inputBox input{font-size: 12px;font-weight: bold;color:#81828e;padding:0 8px;height: 38px;box-sizing: border-box;border:1px solid #b9bbca;border-radius: 3px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.inputl_w{width: 298px;}
+.inputs_w{width: 178px;}
+.inputl_w:focus,.inputs_w:focus{border-color:#3ba6f1;}
+.error_w input{border-color:#f15040;}
+.error_w input:focus{border-color:#f15040;}
+.inputBox li i{display: none;}
+li.error_w i{display: block; color: #f15040;font-size: 12px;font-style: normal;padding-left: 15px;font-weight: bold;position: absolute;left:298px;top:0;min-width: 160px;line-height: 38px;}
+.blueBtn_w{font-size: 14px;font-weight: bold;color:#fff;width: 110px;height: 38px;line-height: 38px;text-align: center;background: #3ba6f1;border-radius: 3px;float: right;cursor: pointer;}
+.deal_w{font-size: 12px;color:#8a8a8a;margin-top: 20px;}
+.deal_w a{color:#0b91ec;}
+.deal_w a:hover{text-decoration: underline}
+.blueBtnL_w{display:block;font-size: 16px;color:#fff;background: #3ba6f1;width: 298px;height: 38px;line-height: 38px;text-align: center;border-radius: 3px;cursor: pointer;}
+.blueBtn_w:hover,.blueBtnL_w:hover{background: #6bb9ef;}
+.blueBtn_w:active,.blueBtnL_w:active{background: #0c7bc7;}
+/*复选框 start*/
+.icheckbox_blue input{width:12px;height:12px;}
+.icheckbox_blue{width:12px;height:12px;display:inline-block;vertical-align:top;margin:0;padding:0;background:url(../images/icheckBW.png) no-repeat;border:none;cursor:pointer;padding-right:4px;}
+.icheckbox_blue{background-position:0 0}
+.icheckbox_blue.hover{background-position:-16px 0}
+.icheckbox_blue.checked{background-position:-32px 0}
+/*复选框 over*/
+/* 注册页面 over*/
+/*注册2 start*/
+.step2NL_w{background-image: url(../images/step2W.png)}
+/*注册2 over*/
+/*注册3 start*/
+.step3NL_w{background-image: url(../images/step3W.png)}
+.stepText_w{font-size: 30px;font-weight: bold;color:#2b2b2b;text-align: center;margin: 40px 0 160px;}
+.stepText_w span{font-weight: bold;}
+/*注册3 over*/
+/*注册协议 start*/
+.dealT_w{font-size: 24px;color:#2b2b2b;text-align: center;font-weight: normal;padding: 40px 0 50px;}
+.dealM_w{font-size: 14px;color:#2b2b2b;line-height: 24px;padding-bottom: 90px;}
+/*注册协议 over*/
+

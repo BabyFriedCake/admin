@@ -1,0 +1,10 @@
+/*2018.1.10 by zy*/
+/*—°‘Ò–≈÷Ω*/
+.select_EP{border:1px solid #dcdde8;background: #ffffff;box-sizing: border-box;border-radius: 5px;padding:0}
+.select_EP .sp-preview{width:115px;height:34px;border: none;margin-right:0;}
+.select_EP .sp-dd{width:33px;height:34px;padding:0;box-sizing: border-box;font-size: 0;background: url(../images/arrowDMW.png) no-repeat left center;}
+.select_EP.sp-replacer:hover, .select_EP.sp-replacer.sp-active{border: 1px solid #279afc;}
+
+.select_EP .sp-choose{font-size:12px;font-family:"Microsoft YaHei";}
+.select_EP .sp-input{border:1px solid #333333;}
+.select_EP .sp-button-container{margin-top:5px;text-align: right}
