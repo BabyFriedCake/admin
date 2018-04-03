@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="admin_tit">账户信息</p>
+    <p class="admin_tit">账户信息 test</p>
     <div class="admin_whiteList">
         <ul class="moduleB_w">
             <li class="w100_w verAB_w"><span>头像</span><img src="../assets/images/headIMW.png" alt=""/><label class="upLoadT_w"><input type="file" class="file_w"/>上传</label></li>
