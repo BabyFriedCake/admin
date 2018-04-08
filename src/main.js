@@ -4,16 +4,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from './store/index.js'
 
-import axios from 'axios'
-Vue.prototype.axios = axios; 
-// import axios from 'axios'
-// Vue.prototype.$ajax = axios
 
 import Login from './page/login/Login.vue'
 
 import DomainStep1 from './page/domain/DomainStep1.vue'
 import DomainStep2 from './page/domain/DomainStep2.vue'
-
 
 import Index from './page/index/Index.vue'
 import Account from './page/index/Account.vue'
@@ -79,6 +74,19 @@ const router = new VueRouter({
       ]
     }
   ]
+})
+router.beforeEach((to,from,next)=>{
+  //从sessionStorage中取出user
+  var userJsonStr = sessionStorage.getItem("user");
+  if(userJsonStr){
+    var user = JSON.parse(userJsonStr);
+    store.state.user = user;
+  }
+  if(to.path!=="/" && !store.state.user){
+    next("/");
+  }else{
+    next();
+  }
 })
 /* eslint-disable no-new */
 new Vue({

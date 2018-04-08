@@ -24,6 +24,11 @@
     </div>
 </template>
 <script>
+import axios from '../../utils/ajax.js';
+import Vue from 'vue'
+import Vuex from 'vuex'
+import store from '../../store/index'
+Vue.use(Vuex)
 export default {
   data() {
     return {
@@ -33,46 +38,23 @@ export default {
   },
   methods: {
     login() {
-      //   const flag = 1;
-      //   if (flag == 1) {
-      //     this.$router.push({ name: "index" });
-      //   } else if (flag == 0) {
-      //     this.$router.push({ name: "domainStep1" });
-      //   }
       var param = {
         username: this.username,
         password: this.password
       };
-      this.axios
-        .post("http://172.27.108.82/hapi/api/login", {
-          username: this.username,
-          password: this.password
-        })
-        .then(function(response) {
-            console.log(response.data)
-        //   this.$router.push({ name: "index" });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      //   this.axios
-      //     .post("http://172.27.108.82/hapi/api/login", param)
-      //     .then(function(data) {
-      //       console.log(data);
-      //     })
-      //     .catch(function(error) {
-      //       console.log(error);
-      //     });
-      //   $.ajax({
-      //     type: "post",
-      //     url: "http://172.27.108.82/hapi/api/login",
-      //     data: param,
-      //     success: function(data) {
-      //       console.log(data);
-      //     },
-      //     error: function() {}
-      //   });
+      axios.post(process.env.API_SERVER+"/api/login", param)
+      .then((res) => {
+        sessionStorage.setItem("user",JSON.stringify(res));
+        store.state.user = res;
+        this.$router.push({ name: "index" });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
     }
+  },
+  created:function(){
+
   }
 };
 </script>

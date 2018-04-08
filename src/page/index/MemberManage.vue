@@ -7,98 +7,14 @@
         <p class="dPN_w"><b class="pl190">部门</b><b class="dPNR_w">操作</b></p>
         <!--展开收起 start-->
         <ul class="deptL_w deptLW100_w grade1">
-            <li>
-                <a href="javascript:;">天津卓朗科技发展有限公司</a>
-                <ul class="grade2 hide">
-                    <li>
-                        <a href="javascript:;">软件事业部</a>
-                        <ul class="grade3 hide">
-                            <li>
-                                <a href="javascript:;">卓朗云邮</a>
-                                <ul class="grade4 hide">
-                                    <li>
-                                        <a class="noIcon_w" href="javascript:;">卓朗云邮</a>
-                                    </li>
-                                    <li>
-                                        <a  class="noIcon_w" href="javascript:;">卓朗网盘</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="noIcon_w" href="javascript:;">卓朗网盘</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:;">软件事业部</a>
-                        <ul class="grade3 hide">
-                            <li>
-                                <a class="noIcon_w" href="javascript:;">卓朗云邮</a>
-                            </li>
-                            <li>
-                                <a href="javascript:;">卓朗云邮</a>
-                                <ul class="grade4 hide">
-                                    <li>
-                                        <a class="noIcon_w" href="javascript:;">卓朗云邮</a>
-                                    </li>
-                                    <li>
-                                        <a  class="noIcon_w" href="javascript:;">卓朗网盘</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
+           <Department></Department>
         </ul>
         <!--展开收起 over-->
     </div>
     <div class="admin_bigWhite log_w pt-30 pb-30 hide">
         <div class="deptML_w">
             <ul class="deptL_w grade1">
-                <li>
-                    <a href="javascript:;">天津卓朗科技发展有限公司</a>
-                    <ul class="grade2 hide">
-                        <li>
-                            <a href="javascript:;">软件事业部</a>
-                            <ul class="grade3 hide">
-                                <li>
-                                    <a href="javascript:;">卓朗云邮</a>
-                                    <ul class="grade4 hide">
-                                        <li>
-                                            <a class="noIcon_w" href="javascript:;">卓朗云邮</a>
-                                        </li>
-                                        <li>
-                                            <a  class="noIcon_w" href="javascript:;">卓朗网盘</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a class="noIcon_w" href="javascript:;">卓朗网盘</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript:;">软件事业部</a>
-                            <ul class="grade3 hide">
-                                <li>
-                                    <a class="noIcon_w" href="javascript:;">卓朗云邮</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">卓朗云邮</a>
-                                    <ul class="grade4 hide">
-                                        <li>
-                                            <a class="noIcon_w" href="javascript:;">卓朗云邮</a>
-                                        </li>
-                                        <li>
-                                            <a  class="noIcon_w" href="javascript:;">卓朗网盘</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+                <DepartmentTree></DepartmentTree>
             </ul>
         </div>
         <div class="deptMR_w">
@@ -248,8 +164,17 @@
 </div>
 </template>
 <script>
+import Department from "./subcomponents/Department"
+import DepartmentTree from "./subcomponents/DepartmentTree"
 export default {
-  name:'Account'
+  name:'MemberManage',
+  components:{
+      Department,
+      DepartmentTree
+  },
+  mounted:{
+      
+  }
 }
 </script>
 <style scoped>
