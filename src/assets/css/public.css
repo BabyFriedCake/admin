@@ -1,6 +1,4 @@
-/***************** 管理平台公共样式 wy start******************/
 p,div,h1,h2,h3,h4,h5,h6,ul,li,ol,dl,dt,dd,button,table,th,td,i,b,s,a,span,input{color:#333;}
-/*管理平台公共header/footer*/
 .header_w{width:100%;height: 61px;background: #fff;border-bottom:1px solid #dcdde8;padding:13px 20px 13px 38px;box-sizing: border-box;position: relative;}
 .logo_w{float: left;margin-right: 20px;}
 .name_w{float:left;font-size: 20px;color:#2b2b2b;padding-left: 20px;border-left:1px solid #dcdcdc;height: 30px;line-height: 30px;margin-top: 2px;}
@@ -19,7 +17,6 @@ p,div,h1,h2,h3,h4,h5,h6,ul,li,ol,dl,dt,dd,button,table,th,td,i,b,s,a,span,input{
 .headerBtn_w a:hover{text-decoration: underline;}
 .footer_w{width:100%;height: 30px;line-height: 30px;text-align: center;background: #e7e7e8;font-size: 12px;color:#999;}
 .main_w{width: 100%;background: #f6f7fb;}
-/*单选框/复选框*/
 .icheckbox_blue,.iradio_square-blue{display:inline-block;vertical-align:middle;margin:0;padding:0;width:14px;height:14px;background:url(../images/icheckMW.png) no-repeat;border:none;cursor:pointer}
 .icheckbox_blue{background-position:0 0}
 .icheckbox_blue.hover{background-position:-24px 0}
@@ -31,7 +28,6 @@ p,div,h1,h2,h3,h4,h5,h6,ul,li,ol,dl,dt,dd,button,table,th,td,i,b,s,a,span,input{
 .iradio_square-blue.checked{background-position:-144px 0}
 .iradio_square-blue.disabled{background-position:-168px 0;cursor:not-allowed}
 .iradio_square-blue.checked.disabled{background-position:-168px 0; cursor:not-allowed}
-/*下拉框*/
 .w150{width: 150px;}
 .selectBox_w{display: inline-block;vertical-align: middle;height: 36px;}
 .selectBox_w .sod_select .sod_label{background: url(../images/arrowDMW.png) no-repeat right center;height: 34px;line-height: 34px;padding-right: 24px;}
@@ -62,21 +58,17 @@ p,div,h1,h2,h3,h4,h5,h6,ul,li,ol,dl,dt,dd,button,table,th,td,i,b,s,a,span,input{
 .pop_w .layui-layer-btn .layui-layer-btn0{background: #279afc;color: #fff;margin-right: 20px;}
 .pop_w .layui-layer-btn .layui-layer-btn0:hover{background: #167fdb;}
 .layui-layer-page .layui-layer-content{overflow: visible;}
-/*提示信息 绿色带图标*/
 .Smsg_w{min-width: 0;width: 220px;height: 36px;box-sizing: border-box;border:1px solid #22ac38;background: #f8fbef;line-height: 34px;text-align: center;color:#22ac38;border-radius: 5px;}
 .Smsg_w .layui-layer-padding{padding:0;height: 34px;line-height: 34px;text-align: center;}
 .Smsg_w .layui-layer-content .layui-layer-ico{width: 16px;height: 34px;background: url(../images/mesIMW.png) center center no-repeat;position: static;margin-right: 10px;}
-/*提示信息 蓝色不带图标*/
 .msgBlue_w{min-width: 0;width: 220px;height: 36px;box-sizing: border-box;border:1px solid #279afc;background: #f3faff;line-height: 34px;text-align: center;color:#22ac38;border-radius: 5px;}
 .msgBlue_w .layui-layer-content{padding:0;height: 34px;line-height: 34px;text-align: center;color:#279afc;}
 
-/******************管理平台公共样式wy end******************/
 
 /*----------zy start----------*/
 /*header*/
 .header_fixed_zy{position: fixed;top:0;z-index: 4}
 
-/*左侧导航*/
 .admin_wrapper_zy{width:100%;position: relative;}
 .admin_con_zy{width:100%;box-sizing: border-box;background:#f6f7fb;padding:30px 20px 40px 217px;position: relative;z-index: 1;margin-top:61px;}
 .admin_nav_zy{width:197px;background: #17243c;position: fixed;top:61px;left: 0;z-index: 3}
@@ -101,7 +93,6 @@ p,div,h1,h2,h3,h4,h5,h6,ul,li,ol,dl,dt,dd,button,table,th,td,i,b,s,a,span,input{
 /*footer*/
 .admin_footer_zy{width:100%;padding-left:197px;box-sizing:border-box;height:30px;line-height: 30px;background: #e7e7e8;color:#999999;text-align: center;font-size:12px;}
 
-/*公共样式*/
 .admin_tit{font-size:16px;font-weight: bold;border-bottom:1px solid #279afc;padding-bottom:15px;}
 .admin_tit a.back{padding-left:18px;color:#279afc;background: url(../images/admin_back.png) center left no-repeat;font-size:12px;margin-top:3px;}
 .admin_tit a.back:hover{text-decoration: underline}
@@ -145,3 +136,6 @@ p,div,h1,h2,h3,h4,h5,h6,ul,li,ol,dl,dt,dd,button,table,th,td,i,b,s,a,span,input{
 .f-s-16{font-size: 16px;}
 
 /*----------zy end----------*/
+.headerR_w:hover .userP_w {
+    display: block
+}

@@ -13,15 +13,15 @@
 .pwd_box dl dt.login_d1{width:80px;height:38px;line-height:38px;color:#2b2b2b;text-align:right;font-weight:bold;position: absolute;left:-90px;}
 .pwd_box dl dt.login_d2{width:200px;height:38px;line-height:38px;position: absolute;left: 320px;top:0}
 .pwd_box dl dd{width:300px;}
-.pwdInp{border: 1px solid #b9bbca;border-radius: 3px;height:38px;line-height:38px;color:#81828e;font-size:12px;padding:0 10px;box-sizing: border-box;font-weight:bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis}
+.pwdInp{border: 1px solid #b9bbca;border-radius: 4px;height:38px;line-height:38px;color:#81828e;font-size:12px;padding:0 10px;box-sizing: border-box;font-weight:bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis}
 .pwdInp.focus{border: 1px solid #3ba6f1;}
 .pwdInp.error{border: 1px solid #f15040;}
 .errorTips{color:#f15040;font-size:12px;font-style: normal;font-weight:bold;}
 .yzm_img{display:inline-block;width:96px;height:32px;margin:3px 0}
-.get_yzm{display: inline-block;width:110px;height:38px;color:#ffffff;background:#3ba6f1;text-align: center;line-height: 38px;border-radius: 3px;font-weight: bold;}
+.get_yzm{display: inline-block;width:110px;height:38px;color:#ffffff;background:#3ba6f1;text-align: center;line-height: 38px;border-radius: 4px;font-weight: bold;}
 .get_yzm:hover{background:#6bb9ef}
 .get_yzm:active{background: #0c7bc7}
-.pwd_next{display: inline-block;width:300px;height:38px;color:#ffffff;background:#3ba6f1;text-align: center;line-height: 38px;border-radius: 3px;font-weight: bold;font-size:16px;}
+.pwd_next{display: inline-block;width:300px;height:38px;color:#ffffff;background:#3ba6f1;text-align: center;line-height: 38px;border-radius: 4px;font-weight: bold;font-size:16px;}
 .pwd_next:hover{background:#6bb9ef}
 .pwd_next:active{background: #0c7bc7}
 .pwd_box.w-600 dl dd{width:500px;}
@@ -42,5 +42,5 @@
 .login_btn_zy{display:block;width:160px;height:36px;line-height:36px;text-align: center;color:#ffffff;font-size:16px;font-weight: bold;background:#3ba6f1;border-radius: 18px;margin:30px auto 0 auto;}
 .login_btn_zy:hover{background:#6bb9ef}
 .login_btn_zy:active{background: #0c7bc7}
-
+.login_inp p.error{color:#f15040;position: absolute;right:-90px;top:15px;font-weight: bold}
 
