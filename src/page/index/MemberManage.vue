@@ -2,178 +2,90 @@
   <div>
     <p class="mb-20">
         <a class="logBtn_w on mr40_w" href="javascript:;">部门管理</a> 
-        <a href="javascript:;" class="logBtn_w">成员管理</a></p>
+        <a href="javascript:;" class="logBtn_w" @click="getSearch">成员管理</a></p>
         <div class="admin_bigWhite log_w p30">
         <p class="dPN_w"><b class="pl190">部门</b><b class="dPNR_w">操作</b></p>
         <!--展开收起 start-->
         <ul class="deptL_w deptLW100_w grade1">
-           <Department></Department>
+           <Department :dept="root" :grade="grade"></Department>
         </ul>
         <!--展开收起 over-->
     </div>
     <div class="admin_bigWhite log_w pt-30 pb-30 hide">
         <div class="deptML_w">
             <ul class="deptL_w grade1">
-                <DepartmentTree></DepartmentTree>
+                <DepartmentTree :dept="root" :grade="grade"></DepartmentTree>
             </ul>
         </div>
-        <div class="deptMR_w">
-            <p class="tableBtnL_w">
-                <a class="addBtnT_w " href="javascript:;">添加成员</a>
-                <a class="dBtnT_w unCBtn_w" href="javascript:;">删 除</a>
-                <a class="fBtnT_w unCBtn_w" href="javascript:;">禁止外发</a>
-                <a class="rfBtnT_w w110 unCBtn_w" href="javascript:;">解除外发限制</a>
-                <a class="lBtnT_w w110 unCBtn_w" href="javascript:;">限制登录IP</a>
-                <a class="rlBtnT_w w110 unCBtn_w" href="javascript:;">解除登录IP限制</a>
-            </p>
-            <div class="table_box pt30_w">
-                <table>
-                    <thead>
-                    <tr>
-                        <th width="4%"><input type="checkbox" name="checkall" class="checkAll"/></th>
-                        <th width="10%">姓名</th>
-                        <th width="%">邮箱账号</th>
-                        <th width="14%">部门</th>
-                        <th width="13%">手机号</th>
-                        <th width="10%">是否限制登录IP</th>
-                        <th width="10%">是否限制外发</th>
-                        <th width="12%">容量</th>
-                        <th width="7%">操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td><input type="checkbox" name=""/></td>
-                        <td>肉小虎</td>
-                        <td>liuliu@troila.com</td>
-                        <td>软件事业部</td>
-                        <td>15911111111</td>
-                        <td>是</td>
-                        <td>是</td>
-                        <td>50/500M</td>
-                        <td><a class="mdf_w" href="javascript:;">修改</a></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name=""/></td>
-                        <td>肉小虎</td>
-                        <td>liuliu@troila.com</td>
-                        <td>软件事业部</td>
-                        <td>15911111111</td>
-                        <td>是</td>
-                        <td>是</td>
-                        <td>50/500M</td>
-                        <td><a class="mdf_w" href="javascript:;">修改</a></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name=""/></td>
-                        <td>肉小虎</td>
-                        <td>liuliu@troila.com</td>
-                        <td>软件事业部</td>
-                        <td>15911111111</td>
-                        <td>是</td>
-                        <td>是</td>
-                        <td>50/500M</td>
-                        <td><a class="mdf_w" href="javascript:;">修改</a></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name=""/></td>
-                        <td>肉小虎</td>
-                        <td>liuliu@troila.com</td>
-                        <td>软件事业部</td>
-                        <td>15911111111</td>
-                        <td>是</td>
-                        <td>是</td>
-                        <td>50/500M</td>
-                        <td><a class="mdf_w" href="javascript:;">修改</a></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name=""/></td>
-                        <td>肉小虎</td>
-                        <td>liuliu@troila.com</td>
-                        <td>软件事业部</td>
-                        <td>15911111111</td>
-                        <td>是</td>
-                        <td>是</td>
-                        <td>50/500M</td>
-                        <td><a class="mdf_w" href="javascript:;">修改</a></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name=""/></td>
-                        <td>肉小虎</td>
-                        <td>liuliu@troila.com</td>
-                        <td>软件事业部</td>
-                        <td>15911111111</td>
-                        <td>是</td>
-                        <td>是</td>
-                        <td>50/500M</td>
-                        <td><a class="mdf_w" href="javascript:;">修改</a></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name=""/></td>
-                        <td>肉小虎</td>
-                        <td>liuliu@troila.com</td>
-                        <td>软件事业部</td>
-                        <td>15911111111</td>
-                        <td>是</td>
-                        <td>是</td>
-                        <td>50/500M</td>
-                        <td><a class="mdf_w" href="javascript:;">修改</a></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name=""/></td>
-                        <td>肉小虎</td>
-                        <td>liuliu@troila.com</td>
-                        <td>软件事业部</td>
-                        <td>15911111111</td>
-                        <td>是</td>
-                        <td>是</td>
-                        <td>50/500M</td>
-                        <td><a class="mdf_w" href="javascript:;">修改</a></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name=""/></td>
-                        <td>肉小虎</td>
-                        <td>liuliu@troila.com</td>
-                        <td>软件事业部</td>
-                        <td>15911111111</td>
-                        <td>是</td>
-                        <td>是</td>
-                        <td>50/500M</td>
-                        <td><a class="mdf_w" href="javascript:;">修改</a></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name=""/></td>
-                        <td>肉小虎</td>
-                        <td>liuliu@troila.com</td>
-                        <td>软件事业部</td>
-                        <td>15911111111</td>
-                        <td>是</td>
-                        <td>是</td>
-                        <td>50/500M</td>
-                        <td><a class="mdf_w" href="javascript:;">修改</a></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="page_box pb0">
-                <div class="pagination">
-                </div>
-            </div>
-        </div>
+        <Members></Members>
     </div>
 </div>
 </template>
 <script>
-import Department from "./subcomponents/Department"
-import DepartmentTree from "./subcomponents/DepartmentTree"
+import Department from "./subcomponents/Department";
+import DepartmentTree from "./subcomponents/DepartmentTree";
+import Members from "./subcomponents/MemberComponent"
+import axios from '../../utils/ajax.js';
+import store from '../../store/index';
+import '../../assets/css/pagination.css';
+import '../../assets/js/jquery.pagination';
 export default {
-  name:'MemberManage',
+  name:'Account',
   components:{
       Department,
-      DepartmentTree
+      DepartmentTree,
+      Members
   },
-  mounted:{
-      
+  created:function(){
+       axios.get(process.env.API_SERVER+"/api/dept/allDeptTree")
+      .then((res)=>{
+          if(process.env.NODE_ENV=="development"){
+              console.log(res);
+          }
+          this.$store.commit({
+              type:"setState",
+              field:"rootdept",
+              data:res
+          });
+      })
+  },
+  mounted:function(){
+       //展开/收起操作
+    $(".deptL_w").on("click","li a",function(){
+        $(this).toggleClass("down").siblings("ul").slideToggle()
+        $(this).parent().find("ul").find("a").removeClass("down").siblings("ul").slideUp()
+        $(this).parent().siblings().find("a").removeClass("down")
+        $(this).parent().siblings().find("ul").slideUp();
+    })
+    $(".logBtn_w").click(function(){
+        $(this).addClass("on").siblings().removeClass("on")
+        var index=$(this).index();
+        $(".log_w").eq(index).show().siblings(".log_w").hide()
+    })
+     $(".pagination").pagination(100,{
+                items_per_page:4,
+                num_display_entries:4,
+                current_page:0,
+                num_edge_entries:1
+
+            });
+  },
+  computed:{
+      root(){
+          return this.$store.getters.rootdept;
+      },
+      grade(){
+          return 2;
+      }
+  },
+  methods:{
+      getSearch:function(){
+         this.$store.commit({
+              type:"setState",
+              field:"getAll",
+              data:true
+          })
+      }
   }
 }
 </script>

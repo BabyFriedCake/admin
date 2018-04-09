@@ -105,7 +105,7 @@ p,div,h1,h2,h3,h4,h5,h6,ul,li,ol,dl,dt,dd,button,table,th,td,i,b,s,a,span,input{
 .admin_btn_solid{display:inline-block;height:36px;line-height: 34px;border-radius: 5px;background:#279afc;color:#ffffff;text-align: center;font-size: 14px;box-sizing: border-box}
 .admin_btn_solid:hover,.admin_btn_solid:active{background:#167fdb}
 
-.table_box{padding:20px 30px 20px 30px;}
+.table_box{padding:20px 30px 20px 30px;min-height: 469px;}
 .table_box table{width: 100%;font-size:14px;table-layout:fixed}
 .table_box table thead tr{border-bottom: 1px solid #279afc;}
 .table_box table tbody tr{border-bottom: 1px solid #dcdde8;}

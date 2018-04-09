@@ -1,53 +1,29 @@
 <template>
-  <li>
-                    <a href="javascript:;">天津卓朗科技发展有限公司</a>
-                    <ul class="grade2 hide">
-                        <li>
-                            <a href="javascript:;">软件事业部</a>
-                            <ul class="grade3 hide">
-                                <li>
-                                    <a href="javascript:;">卓朗云邮</a>
-                                    <ul class="grade4 hide">
-                                        <li>
-                                            <a class="noIcon_w" href="javascript:;">卓朗云邮</a>
-                                        </li>
-                                        <li>
-                                            <a  class="noIcon_w" href="javascript:;">卓朗网盘</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a class="noIcon_w" href="javascript:;">卓朗网盘</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript:;">软件事业部</a>
-                            <ul class="grade3 hide">
-                                <li>
-                                    <a class="noIcon_w" href="javascript:;">卓朗云邮</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">卓朗云邮</a>
-                                    <ul class="grade4 hide">
-                                        <li>
-                                            <a class="noIcon_w" href="javascript:;">卓朗云邮</a>
-                                        </li>
-                                        <li>
-                                            <a  class="noIcon_w" href="javascript:;">卓朗网盘</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+   <li v-if="dept!=null">
+    <a href="javascript:;">{{dept.name}}</a>
+        <ul class="hide" :class="currentGrade">
+                <DepartmentTree v-for="(dept,index) in dept.subDepts" :dept="dept" :key="index" :grade="propGrade"></DepartmentTree>
+        </ul>
+    </li>
 </template>
 <script>
 export default {
   name:"DepartmentTree",
+  props: {
+    dept: Object,
+    grade: Number
+  },
   methods:{
 
+  },
+   computed: {
+    currentGrade() {
+      return "grade" + this.grade;
+    },
+    propGrade() {
+      let grade = this.grade + 1;
+      return grade;
+    }
   }
 }
 </script>

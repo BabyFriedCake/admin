@@ -5,14 +5,21 @@
         <ul class="moduleB_w">
             <li class="w100_w verAB_w">
                 <span>头像</span>
-                <img src="../../assets/images/headIMW.png" alt=""/>
+                <img :src="headImg" alt=""/>
                 <label class="upLoadT_w"><input type="file" class="file_w"/>上传</label>
             </li>
             <li><span>企业名称</span>
-                <input class="input_w unInput_w" type="text"  value="" readonly="readonly" v-model="$store.state.user.contact"/>
+                <input class="input_w unInput_w" type="text"  value="" readonly="readonly" v-model="enterprise.name"/>
             </li>
-            <li><span>邮箱域名</span><input class="input_w unInput_w" type="text" value="" readonly="readonly" /></li>
-            <li class="mb0_w"><span>手机号</span><input class="input_w unInput_w" type="text" value="" readonly="readonly"/> <a class="modify_w" href="javascript:;" @click="changeMobile">修改</a></li>
+            <li>
+                <span>邮箱域名</span>
+                <input class="input_w unInput_w" type="text" value="" readonly="readonly" v-model="settings.domainName"/>
+            </li>
+            <li class="mb0_w">
+                <span>手机号</span>
+                <input class="input_w unInput_w" type="text" value="" readonly="readonly" v-model="$store.state.user.contact"/> 
+                <a class="modify_w" href="javascript:;" @click="changeMobile">修改</a>
+            </li>
             <div class="c-both"></div>
         </ul>
     </div>
@@ -20,19 +27,25 @@
     <p class="admin_tit mt-40">使用情况</p>
     <div class="admin_whiteList">
         <ul class="moduleB_w">
-            <li class="po-re"><span>总容量</span><div class="proBox_w"><p class="proNum_w"></p></div><i class="numBox_w"><b class="usNum_w">150G</b>/<b class="allNum_w">500G</b></i></li>
+            <li class="po-re">
+              <span>总容量</span>
+              <div class="proBox_w"><p class="proNum_w"></p></div>
+              <i class="numBox_w"><b class="usNum_w">150G</b>/<b class="allNum_w">{{settings.maxStorageCapacity}}G</b></i></li>
             <li><span>成员默认容量</span>
                 <div class="selectBox_w w150">
                     <select name="" id="">
-                        <option value="">500G</option>
-                        <option value="">500G</option>
-                        <option value="">500G</option>
-                        <option value="">500G</option>
-                        <option value="">500G</option>
+                        <option value="1024">1G</option>
+                        <option value="2048">2G</option>
+                        <option value="5120">5G</option>
                     </select>
                 </div>
             </li>
-            <li class="po-re mb0_w w100_w"><span>成员数量</span><div class="proBox_w"><p class="proNum_w"></p></div><i class="numBox_w"><b class="usNum_w">10</b>/50</i></li>
+            <li class="po-re mb0_w w100_w">
+              <span>成员数量</span>
+              <div class="proBox_w">
+                <p class="proNum_w" :style="{width:w}"></p>
+              </div>
+              <i class="numBox_w"><b class="usNum_w">{{accountNum}}</b>/{{settings.userQuotas}}</i></li>
             <div class="c-both"></div>
         </ul>
     </div>
@@ -40,7 +53,11 @@
     <p class="admin_tit mt-40">企业出口IP设置</p>
     <div class="admin_whiteList">
         <ul class="moduleB_w">
-            <li class="w100_w mb0_w"><span>出口IP</span><input class="input_w" type="text"  value="XXX;XXX" /><i class="noteT_w">（IP之间以；隔开）</i></li>
+            <li class="w100_w mb0_w">
+              <span>出口IP</span>
+              <input class="input_w" type="text"  v-model="settings.validIpaddress" />
+              <i class="noteT_w">（IP之间以；隔开）</i>
+              </li>
             <div class="c-both"></div>
         </ul>
     </div>
@@ -69,7 +86,7 @@
             <div class="clear"></div>
         </ul>
         <ul class="telNumB_w">
-            <li class="mb-20"><span>原始手机号</span><input class="input_w" type="text" value="15911111111"/></li>
+            <li class="mb-20"><span>原始手机号</span><input class="input_w" type="text"  v-model="$store.state.user.contact"/></li>
             <li>
                 <span>手机验证码</span><input class="input_w w180 mr-10" type="text" /><a class="btnBorder_w" href="javascript:;">获取手机验证码</a>
                 <p class="error_w">手机验证码错误，请重新获取</p>
@@ -86,7 +103,7 @@
         </ul>
         <ul class="telNumB_w">
             <li class="mb-20">
-                <span>新手机号</span><input class="input_w" type="text" value="15911111111"/>
+                <span>新手机号</span><input class="input_w" type="text" value="" />
                 <p class="error_w">手机号格式不正确，请重新输入</p>
             </li>
             <li>
@@ -105,10 +122,26 @@ export default {
   name: "Account",
   data() {
     return {
-      enterpriseName: "",
-      mobile: "",
-      eMail: ""
+      enterprise:{},
+      settings:{},
+      accountNum:"",
+      sumAccountCap: ""
     };
+  },
+  computed: {
+    w(){
+      return (this.accountNum/this.userQuotas)*100+"%"
+    },
+    headImg() {
+      var ImgUrl = process.env.API_SERVER + this.$store.state.user.headImg;
+      // 默认头像
+      var DefaultImg = require("../../assets/images/userImgLMW.png");
+      if (ImgUrl == "") {
+        return DefaultImg;
+      } else {
+        return ImgUrl;
+      }
+    }
   },
   methods: {
     changeMobile() {
@@ -132,7 +165,8 @@ export default {
             content: $(".pop2_w"),
             success: function(layero) {
               var mask = $(".layui-layer-shade");
-              mask.appendTo(layero.parent());
+              layero.appendTo(layero.parents("body"));
+              mask.appendTo(layero.parents("body"));
             }
           });
 
@@ -143,7 +177,8 @@ export default {
         },
         success: function(layero) {
           var mask = $(".layui-layer-shade");
-          mask.appendTo(layero.parent());
+          layero.appendTo(layero.parents(".admin_wrapper_zy"));
+          mask.appendTo(layero.parents(".admin_wrapper_zy"));
         }
       });
     },
@@ -161,24 +196,91 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+    },
+    getEnterprise() {
+      let __this = this;
+      axios({
+        method: "get",
+        url: process.env.API_SERVER + "/api/enterprise/getByUserCode",
+        params: {
+          userCode: __this.$store.state.user.userCode
+        }
+      })
+        .then(res => {
+          this.enterprise = res
+          console.log(res)
+          // this.enterpriseId = res.id
+          // this.contact = res.contact;
+          // this.name = res.name;
+          // this.mailAddress = res.mailAddress;
+          axios.all([__this.getSettings(), __this.getAccountNum(), __this.getSumAccountCap()]).then(
+            axios.spread(function(set, accnum, acccap) {
+              // 两个请求现在都执行完成
+              console.log(set);
+              console.log(accnum);
+              console.log(acccap);
+            })
+          );
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    //获取企业设置信息
+    getSettings() {
+      return axios({
+        method: "get",
+        url: process.env.API_SERVER + "/api/enterprise/settings"
+      })
+        .then(res => {
+          this.settings = res
+        })
+        .catch(function(error) {
+          //蓝色提示信息
+	        layer.msg('获取企业配置信息失败',{icon:1,time:3000,skin:'Smsg_w'});
+        });
+    },
+    //获取成员数量
+    getAccountNum() {
+      return axios({
+        method: "get",
+        url: process.env.API_SERVER + "/api/enterprise/accountNum",
+        params: {
+          enterpriseId: this.enterprise.id
+        }
+      })
+        .then(res => {
+          this.accountNum = res
+        })
+        .catch(function(error) {
+          //蓝色提示信息
+	        layer.msg('获取成员信息失败',{icon:1,time:3000,skin:'Smsg_w'});
+        });
+    },
+    //获取企业设置信息
+    getSumAccountCap(){
+      return axios({
+        method: "get",
+        url: process.env.API_SERVER + "/api/account/sumAccountCap",
+        params: {
+          enterpriseId: this.enterprise.id
+        }
+      })
+        .then(res => {
+          console.log(res)
+          this.sumAccountCap = res
+        })
+        .catch(function(error) {
+          //蓝色提示信息
+	        layer.msg('获取成员信息失败',{icon:1,time:3000,skin:'Smsg_w'});
+        });
     }
   },
-  created() {
-    
-  },
+  created() {},
   mounted() {
     $("select").selectOrDie();
-    // axios.get(process.env.API_SERVER + "/api/contact/personal", {
-    //     params: {
-    //     ID: stroe.state.user.id
-    //     }
-    // }).then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(function(error) {
-    //     console.log(error);
-    //   });
     console.log(this.$store.state.user);
+    this.getEnterprise();
   }
 };
 </script>

@@ -1,7 +1,6 @@
 <template>
   <div>
     <Header></header>
-    <!-- <ChangePswd></ChangePswd> -->
     <div class="admin_wrapper_zy">
       <div class="admin_nav_zy">
           <ul>
@@ -14,46 +13,22 @@
           </ul>
       </div>
       <div class="admin_con_zy" style="overflow: hidden">
+        <keep-alive>
         <router-view/>
+        </keep-alive>
       </div>
       <Footer></Footer>
     </div>
-
-    
   </div>
-  
 </template>
 
 <script>
-import '../../assets/js/jquery-1.11.3.min.js'
-
-import '../../assets/js/layer/layer.js'
-import '../../assets/js/layer/skin/default/layer.css';
-import '../../assets/css/public.css';
-import '../../assets/css/wy_manage.css';
-
-
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
+import '../../assets/js/jquery-1.11.3.min.js'
 export default {
   name: 'IndexMain',
   components:{Header,Footer},
-  computed:{
-    // if(adPopMW == 1){
-    //   //添加子部门
-    //   $(".addDpart_w").click(function(){
-    //       layer.open({
-    //           id:'dlayer1',
-    //           type:1,
-    //           skin:"pop_w",
-    //           title:"添加部门",
-    //           area:["580px","auto"],
-    //           btn:["确认","取消"], 
-    //           content:$(".adPopM_w"),
-    //       })
-    //   })
-    // }
-  },
   mounted(){
     // 页面最小高度
     var winH=$(window).height()-$('.header_w').outerHeight();
@@ -61,8 +36,10 @@ export default {
         "height":winH,
     });
     $(".admin_con_zy").css({
-        "minHeight":winH,
+        "minHeight":winH-$('.admin_footer_zy').outerHeight(),
     });
+    // var adminMinH = $('.admin_con_zy').outerHeight()-70-56-62
+    // $('.admin_bigWhite').css('minHeight',adminMinH)
   }
 }
 </script>

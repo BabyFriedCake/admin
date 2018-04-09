@@ -44,12 +44,20 @@ export default {
       };
       axios.post(process.env.API_SERVER+"/api/login", param)
       .then((res) => {
-        sessionStorage.setItem("user",JSON.stringify(res));
-        store.state.user = res;
-        this.$router.push({ name: "index" });
+        if(res){
+          sessionStorage.setItem("user",JSON.stringify(res));
+          store.state.user = res;
+          this.$router.push({ name: "index" });
+        }
       })
-      .catch(function(error) {
+      .catch((error)=>{
         console.log(error);
+         layer.msg(error.data, {
+                  skin: "Smsg_w",
+                  icon: 1,
+                  offset: "60px",
+                  time: 2000
+                });
       });
     }
   },

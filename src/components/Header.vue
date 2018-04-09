@@ -54,7 +54,7 @@ export default {
       var ImgUrl = process.env.API_SERVER + this.$store.state.user.headImg;
       // 默认头像
       var DefaultImg = require("../assets/images/userImgLMW.png");
-      if (ImgUrl == "") {
+      if (!ImgUrl) {
         return DefaultImg;
       } else {
         return ImgUrl;
@@ -80,10 +80,6 @@ export default {
   }
 };
 </script>
-<style>
-.layui-layer-shade {
-  z-index: 10 !important;
-}
-</style>
+
 
 
