@@ -1,7 +1,7 @@
 <template>
           <div class="deptMR_w">
             <p class="tableBtnL_w">
-                <a class="addBtnT_w " href="javascript:;" :hattr="state">添加成员</a>
+                <a class="addBtnT_w " href="javascript:;" :hattr="state" @click="addMember">添加成员</a>
                 <a class="dBtnT_w unCBtn_w" href="javascript:;">删 除</a>
                 <a class="fBtnT_w unCBtn_w" href="javascript:;">禁止外发</a>
                 <a class="rfBtnT_w w110 unCBtn_w" href="javascript:;">解除外发限制</a>
@@ -32,7 +32,7 @@
                         <td>{{member.contact}}</td>
                         <td>{{member.limitIpAddressEnabled?"是":"否"}}</td>
                         <td>{{member.publicDeliveryDisabled?"是":"否"}}</td>
-                        <td>50/500M</td>
+                        <td>{{storage(member)}}</td>
                         <td><a class="mdf_w" href="javascript:;">修改</a></td>
                     </tr>
                     </tbody>
@@ -42,14 +42,22 @@
                 <div class="pagination">
                 </div>
             </div>
+            <!-- <div hidden>
+              <a>你看不见我</a> -->
+              <AddMember></AddMember>
+            <!-- </div> -->
         </div>
 </template>
 <script>
 import "../../../assets/js/iCheck";
 import "../../../assets/js/jquery-1.11.3.min.js";
 import axios from "../../../utils/ajax.js";
+import AddMember from "./AddMemberComponent";
 export default {
   name: "MemberComponent",
+  components: {
+    AddMember
+  },
   methods: {},
   data: function() {
     return {
@@ -79,9 +87,9 @@ export default {
       num_display_entries: 4,
       current_page: __this.data.number,
       num_edge_entries: 1,
-       callback:function (index) {
-           __this.getItemsByPage(index);
-       }
+      callback: function(index) {
+        __this.getItemsByPage(index);
+      }
     });
   },
   computed: {
@@ -114,27 +122,68 @@ export default {
     //全选、取消全选功能
   },
   methods: {
-      getItemsByPage:function(page){
-          var __this = this;
-          axios
-          .get(
-            process.env.API_SERVER +
-              "/api/dept/members?page=" +
-              page +
-              "&size=" +
-              __this.pageSize +
-              "&dept=" +
-              __this.$store.getters.rootdept.id
-          )
-          .then(res => {
-            if (process.env.NODE_ENV == "development") {
-              console.log(res);
-            }
-            __this.members = res.content;
-            __this.data = res;
-          })
-          .catch(error => alert(error));
+    getItemsByPage: function(page) {
+      var __this = this;
+      axios
+        .get(
+          process.env.API_SERVER +
+            "/api/dept/members?page=" +
+            page +
+            "&size=" +
+            __this.pageSize +
+            "&dept=" +
+            __this.$store.getters.rootdept.id
+        )
+        .then(res => {
+          if (process.env.NODE_ENV == "development") {
+            console.log(res);
+          }
+          __this.members = res.content;
+          __this.data = res;
+        })
+        .catch(error => alert(error));
+    },
+    storage(member) {
+      let max;
+      let used;
+      if (member.maxStorageCapacity < 1024) {
+        max = parseInt(member.maxStorageCapacity) + "M";
+      } else {
+        max = parseInt(member.maxStorageCapacity / 1024) + "G";
       }
+      if (member.actualStorageOccupied < 1024 * 1024 * 1024) {
+        used = parseInt(member.actualStorageOccupied / 1024 / 1024) + "M";
+      } else {
+        used =
+          parseInt(member.actualStorageOccupied / 1024 / 1024 / 1024) + "G";
+      }
+      return used + "/" + max;
+    },
+    addMember() {
+      var __this = this;
+       __this.bus.$emit("reload");
+      layer.open({
+        id: "dlayer4",
+        type: 1,
+        skin: "pop_w",
+        title: "添加成员",
+        area: ["590px", "500px"],
+        btn: ["确认", "取消"],
+        content: $(".adTPop_w"),
+        success: function(layero) {
+          var mask = $(".layui-layer-shade");
+          mask.appendTo(layero.parents("body"));
+          layero.appendTo(layero.parents("body"));
+        },
+        yes:function(index){
+          layer.close(index);
+          __this.bus.$emit("addMember");
+        },
+        btn2:function(index){
+          __this.bus.$emit("cleardata");
+        }
+      });
+    }
   }
 };
 </script>

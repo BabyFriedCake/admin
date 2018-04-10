@@ -42,7 +42,7 @@ export default {
         username: this.username,
         password: this.password
       };
-      axios.post(process.env.API_SERVER+"/api/login", param)
+      this.$axios.post(process.env.API_SERVER+"/api/login", param)
       .then((res) => {
         if(res){
           sessionStorage.setItem("user",JSON.stringify(res));

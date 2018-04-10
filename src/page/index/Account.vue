@@ -29,8 +29,8 @@
         <ul class="moduleB_w">
             <li class="po-re">
               <span>总容量</span>
-              <div class="proBox_w"><p class="proNum_w"></p></div>
-              <i class="numBox_w"><b class="usNum_w">150G</b>/<b class="allNum_w">{{settings.maxStorageCapacity}}G</b></i></li>
+              <div class="proBox_w"><p class="proNum_w" :style="{width:proNumW}"></p></div>
+              <i class="numBox_w"><b class="usNum_w">{{sumAccountCap|division|division|division}}G</b>/<b class="allNum_w">{{settings.maxStorageCapacity|division}}G</b></i></li>
             <li><span>成员默认容量</span>
                 <div class="selectBox_w w150">
                     <select name="" id="">
@@ -76,7 +76,7 @@
     </div>
     <div class="mt-20 clearfix">
         <a href="javascript:;" class="admin_btn_border w-80 fr">取消</a>
-        <a href="javascript:;" class="admin_btn_solid w-80 mr-20 fr" @click="save">保存更改</a>
+        <a href="javascript:;" class="admin_btn_solid w-80 mr-20 fr">保存更改</a>
     </div>
     <!--解绑原始手机号 弹窗 start-->
     <div class="pop1_w hide">
@@ -117,20 +117,36 @@
 </template>
 <script>
 import "../../assets/js/select.js";
-import axios from "../../utils/ajax.js";
 export default {
   name: "Account",
   data() {
     return {
-      enterprise:{},
-      settings:{},
-      accountNum:"",
+      enterprise: {},
+      settings: {},
+      accountNum: "",
       sumAccountCap: ""
     };
   },
+  filters: {
+    division: function(value) {
+      if (!value) return "";
+      value = Math.round(value / 1024);
+      return value;
+    }
+  },
   computed: {
-    w(){
-      return (this.accountNum/this.userQuotas)*100+"%"
+    proNumW() {
+      var proNumW = Math.round(
+        this.sumAccountCap /
+          1024 /
+          1024 /
+          1024 /
+          (this.settings.maxStorageCapacity / 1024)
+      );
+      return proNumW * 100 + "%";
+    },
+    w() {
+      return this.accountNum / this.settings.userQuotas * 100 + "%";
     },
     headImg() {
       var ImgUrl = process.env.API_SERVER + this.$store.state.user.headImg;
@@ -182,107 +198,146 @@ export default {
         }
       });
     },
-    save() {
-      var param = {
-        enterpriseName: this.enterpriseName,
-        mobile: this.mobile,
-        eMail: this.eMail
-      };
-      axios
-        .post(process.env.API_SERVER + "/api/enterprise", param)
-        .then(res => {
-          console.log(res);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
     getEnterprise() {
       let __this = this;
-      axios({
+      this.$axios({
         method: "get",
         url: process.env.API_SERVER + "/api/enterprise/getByUserCode",
         params: {
           userCode: __this.$store.state.user.userCode
         }
-      })
-        .then(res => {
-          this.enterprise = res
-          console.log(res)
-          // this.enterpriseId = res.id
-          // this.contact = res.contact;
-          // this.name = res.name;
-          // this.mailAddress = res.mailAddress;
-          axios.all([__this.getSettings(), __this.getAccountNum(), __this.getSumAccountCap()]).then(
-            axios.spread(function(set, accnum, acccap) {
-              // 两个请求现在都执行完成
-              console.log(set);
-              console.log(accnum);
-              console.log(acccap);
+      }).then(res => {
+        this.enterprise = res;
+        // console.log(res)
+        __this.$axios
+          .all([
+            __this.getSettings(),
+            __this.getAccountNum(),
+            __this.getSumAccountCap()
+          ])
+          .then(
+            __this.$axios.spread(function(settings, accountNum, sumAccountCap) {
+              // n个请求现在都执行完成
+              __this.settings = settings;
+              __this.accountNum = accountNum;
+              __this.sumAccountCap = sumAccountCap;
+              sessionStorage.setItem("domainName",__this.settings.domainName);
+              console.log(sessionStorage)
+              // console.log(__this.settings.enterpriseId)
+              // console.log(__this.accountNum)
             })
           );
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+        // .catch(__this.$axios.spread(function(err1,err2,err3) {
+        //   // err1 = layer.msg('获取企业配置信息失败',{icon:1,time:3000,skin:'Smsg_w'});
+        //   // err2 = layer.msg('获取成员信息失败',{icon:1,time:3000,skin:'Smsg_w'});
+        //   // err3 = layer.msg('获取成员信息失败',{icon:1,time:3000,skin:'Smsg_w'});
+        // }))
+      });
+      // .catch(function(error) {
+      //   console.log(error);
+      // });
     },
     //获取企业设置信息
     getSettings() {
-      return axios({
+      return this.$axios({
         method: "get",
         url: process.env.API_SERVER + "/api/enterprise/settings"
-      })
-        .then(res => {
-          this.settings = res
-        })
-        .catch(function(error) {
-          //蓝色提示信息
-	        layer.msg('获取企业配置信息失败',{icon:1,time:3000,skin:'Smsg_w'});
+      }).catch(function() {
+        layer.msg("获取企业配置信息失败", {
+          icon: 1,
+          time: 3000,
+          skin: "Smsg_w"
         });
+      });
     },
     //获取成员数量
     getAccountNum() {
-      return axios({
+      return this.$axios({
         method: "get",
         url: process.env.API_SERVER + "/api/enterprise/accountNum",
         params: {
           enterpriseId: this.enterprise.id
         }
-      })
-        .then(res => {
-          this.accountNum = res
-        })
-        .catch(function(error) {
-          //蓝色提示信息
-	        layer.msg('获取成员信息失败',{icon:1,time:3000,skin:'Smsg_w'});
-        });
+      }).catch(function() {
+        layer.msg("获取成员信息失败", { icon: 1, time: 3000, skin: "Smsg_w" });
+      });
     },
-    //获取企业设置信息
-    getSumAccountCap(){
-      return axios({
+    //获取成员用量信息失败
+    getSumAccountCap() {
+      return this.$axios({
         method: "get",
         url: process.env.API_SERVER + "/api/account/sumAccountCap",
         params: {
           enterpriseId: this.enterprise.id
         }
-      })
-        .then(res => {
-          console.log(res)
-          this.sumAccountCap = res
-        })
-        .catch(function(error) {
-          //蓝色提示信息
-	        layer.msg('获取成员信息失败',{icon:1,time:3000,skin:'Smsg_w'});
+      }).catch(function() {
+        layer.msg("获取成员用量信息失败", {
+          icon: 1,
+          time: 3000,
+          skin: "Smsg_w"
         });
-    }
+      });
+    },
+    //文件
+    getFile() {
+      let __this = this
+      var fileM = document.querySelector(".file_w");
+      console.log(fileM)
+      $(".file_w").on("change", function() {
+        // console.log(fileM.files); 
+        //获取文件对象，files是文件选取控件的属性，存储的是文件选取控件选取的文件对象，类型是一个数组
+        var fileObj = fileM.files[0];
+        //创建formdata对象，formData用来存储表单的数据，表单数据时以键值对形式存储的。
+        console.log(fileObj);
+        var formData=new FormData();
+        formData.append('file',fileObj);
+
+        __this.$axios({
+          url: process.env.API_SERVER + "/api/file",
+          method: "post",
+          data: formData
+        })
+          .then(function(res) {
+            console.log(res);
+
+            // vue.account.headImg = '${apiServer}/api/file?fid='+data.id;
+            // var account = {};
+            // account.id = "${Session.user.id?c}";
+            // account.userCode = "${Session.user.userCode!}";
+            // account.name = "${Session.user.name!}";
+            // account.contact = "${Session.user.contact!}";
+            // account.departmentId = "${Session.user.departmentId!}";
+            // account.mailAddress = "${Session.user.mailAddress!}";
+            // account.password = "${Session.user.password!}";
+            // account.status = "${Session.user.status?string('true','false')}";
+            // account.headImg = '/api/file?fid='+data.id;
+            // //更新账号头像
+            // $.ajax({
+            // type: 'put',
+            // url: '${apiServer}/api/account/update',
+            // contentType: 'application/json',
+            // data:JSON.stringify(account),
+            // success: function(returnData){
+            // },
+            // error: function(){
+            //   //蓝色提示信息
+            //       layer.msg('头像修改失败',{icon:1,time:3000,skin:'pansty'});
+            // }
+          })
+          .catch(function() {
+            alert("上传失败！");
+          })
+      })
+    },
   },
   created() {},
   mounted() {
-    $("select").selectOrDie();
-    console.log(this.$store.state.user);
-    this.getEnterprise();
+      $("select").selectOrDie();
+      // console.log(this.$store.state.user);
+      this.getEnterprise();
+      this.getFile()
   }
-};
+}
 </script>
 <style scoped>
 @import "../../assets/css/wy_manage.css";

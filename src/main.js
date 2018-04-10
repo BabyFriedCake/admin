@@ -17,9 +17,15 @@ import Log from './page/index/Log.vue'
 import MemberManage from './page/index/MemberManage.vue'
 import Paper from './page/index/Paper.vue'
 import Spam from './page/index/Spam.vue'
+import axios from './utils/ajax'
 
+
+//配置表单验证组件
+import VeeValidate, { Validator }from 'vee-validate'
+import zh_CN from 'vee-validate/dist/locale/zh_CN';
+Validator.localize('zh_CN', zh_CN);
+Vue.use(VeeValidate);
 Vue.use(VueRouter)
-
 Vue.config.productionTip = false
 
 const router = new VueRouter({
@@ -77,6 +83,10 @@ const router = new VueRouter({
 })
 router.beforeEach((to,from,next)=>{
   //从sessionStorage中取出user
+  if(store.state.user){
+    next();
+    return;
+  }
   var userJsonStr = sessionStorage.getItem("user");
   if(userJsonStr){
     var user = JSON.parse(userJsonStr);
@@ -88,6 +98,9 @@ router.beforeEach((to,from,next)=>{
     next();
   }
 })
+Vue.prototype.$axios = axios;
+var bus = new Vue({});
+Vue.prototype.bus=bus;
 /* eslint-disable no-new */
 new Vue({
   router,
@@ -97,4 +110,4 @@ new Vue({
       <router-view></router-view>
     </div>
   `,
-}).$mount('#app')
+}).$mount('#app');
