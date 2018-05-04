@@ -23,13 +23,28 @@
 </template>
 
 <script>
+import '../../assets/js/jquery-1.11.3.min.js';
+import '../../assets/js/layer/layer.js';
+import  '../../assets/js/layer/skin/default/layer.css';
+import '../../assets/css/public.css'; 
+import '../../assets/css/wy_manage.css'; 
+import '../../assets/css/common.css'; 
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
-import '../../assets/js/jquery-1.11.3.min.js'
+// import '../../assets/js/jquery-1.11.3.min.js'
 export default {
   name: 'IndexMain',
   components:{Header,Footer},
   mounted(){
+    $(window).resize(function() {
+      var winH=$(window).height()-$('.header_w').outerHeight();
+      $(".admin_nav_zy").css({
+          "height":winH,
+      });
+      $(".admin_con_zy").css({
+          "minHeight":winH-$('.admin_footer_zy').outerHeight(),
+      });
+    });
     // 页面最小高度
     var winH=$(window).height()-$('.header_w').outerHeight();
     $(".admin_nav_zy").css({
@@ -46,8 +61,8 @@ export default {
 
 <style>
 @import '../../assets/css/select.css';
-@import '../../assets/css/common.css';
-@import '../../assets/css/public.css';
+/* @import '../../assets/css/common.css'; */
+/* @import '../../assets/css/public.css'; */
 .router-link-active a{background: #279afc;color: #fff !important;}
 .router-link-active i{background-position: 0 -23px !important }
 </style>

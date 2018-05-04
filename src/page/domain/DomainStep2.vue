@@ -16,7 +16,7 @@
                         <dt><img src="../../assets/images/loadingW.gif" alt=""/></dt>
                         <dd><h4>域名解析中......</h4></dd>
                         <dd>12小时内，解析结果会以短信方式发送到您的手机上，若解析成功，可登录卓朗云邮企业版进行使用。<br/>
-                            如长时间未通知解析结果，请致电XXXXXX。
+                            如长时间未通知解析结果，请致电022-87277888。
                         </dd>
                     </dl>
                 </div>
@@ -29,6 +29,9 @@
 import DomainHeader from '../../components/DomainHeader.vue'
 import DomainFooter from '../../components/DomainFooter.vue'
 export default {
+    data:function(){
+        timeid = ""
+    },
   name:'DomainStep1',
   components:{DomainHeader,DomainFooter},
   methods:{
@@ -36,8 +39,57 @@ export default {
   },
   // 页面最小高度
   mounted(){
+    $(window).resize(function() {
+        // 页面最小高度
+        var minH = $(window).height()-$('.header_w').outerHeight()-$('.footer_w').outerHeight()
+        $('.main_w').css('minHeight',minH)
+    });
     var minH = $(window).height()-$('.header_w').outerHeight()-$('.footer_w').outerHeight()
     $('.main_w').css('minHeight',minH)
+
+    this.timeid = setInterval(() => {
+            this.$axios.get(process.env.API_SERVER+"/api/enterprise/domain/resolved", "")
+            .then((res) => {
+                if(res){
+                    clearInterval(this.intervalid1);
+                    this.$router.push({ name: "index" });
+                }
+            })
+            .catch((error)=>{
+                console.log(error);
+                layer.msg(error, {
+                        skin: "Smsg_w",
+                        icon: 2,
+                        offset: "60px",
+                        time: 2000
+                        });
+            });
+        }, 3000);
+        
+  },
+  created(){
+      this.$axios.get(process.env.API_SERVER+"/api/enterprise/domain/resolved", "")
+            .then((res) => {
+                if(res){
+                this.$router.push({ name: "index" });
+                }
+            })
+            .catch((error)=>{
+                console.log(error);
+                layer.msg(error, {
+                        skin: "Smsg_w",
+                        icon: 2,
+                        offset: "60px",
+                        time: 2000
+                        });
+            });
+
+        
+        
+
+  },
+  destroyed(){
+      clearInterval(this.timeid);
   }
 }
 </script>

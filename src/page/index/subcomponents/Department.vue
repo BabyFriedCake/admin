@@ -7,12 +7,11 @@
             <p class="operList">
                 <a class="addDpart_w" href="javascript:;" @click="createSubDept">添加子部门</a>
                 <a class="mDpart_w" href="javascript:;" @click="modify">修改</a>
-                <a class="dDpart_w" href="javascript:;" @click="del">删除</a></p>
+                <a v-show="dept.parent!=0" class="dDpart_w" href="javascript:;" @click="del">删除</a></p>
             </li>
 </template>
 <script>
-import "../../../assets/js/jquery-1.11.3.min.js";
-import axios from "../../../utils/ajax.js";
+// import "../../../assets/js/jquery-1.11.3.min.js";
 export default {
   name: "Department",
   props: {
@@ -38,7 +37,11 @@ export default {
           let name = $(".adPopM_w")
             .find("input")
             .val();
-          axios
+            if(!name){
+               layer.msg('部门名称不能为空',{icon:2,time:2000,skin:'pansty'});
+               return; 
+            }
+          __this.$axios
             .post(process.env.API_SERVER + "/api/dept", {
               name: name,
               enterpriseId: __this.dept.enterpriseId,
@@ -68,7 +71,11 @@ export default {
              let name = $(".adPopM_w")
             .find("input")
             .val();
-            axios.put(process.env.API_SERVER + "/api/dept",{
+            if(!name){
+               layer.msg('部门名称不能为空',{icon:2,time:2000,skin:'pansty'});
+               return; 
+            }
+            __this.$axios.put(process.env.API_SERVER + "/api/dept",{
                 id:__this.dept.id,
                 name:name,
                 enterpriseId: __this.dept.enterpriseId,
@@ -107,13 +114,13 @@ export default {
           content:
             '<p class="dPopM_w">确定要删除部门：' + __this.dept.name + "。</p>",
           yes: function(index) {
-            axios
+            __this.$axios
               .delete(
                 process.env.API_SERVER + "/api/dept?ids=" + __this.dept.id
               )
               .then(res => {
                 for (var i = 0; i < __this.$parent.dept.subDepts.length; i++) {
-                  if ((__this.$parent.dept.subDepts[i].id = __this.dept.id)) {
+                  if (__this.$parent.dept.subDepts[i].id == __this.dept.id) {
                     __this.$parent.dept.subDepts.splice(i, 1);
                     break;
                   }
@@ -140,7 +147,9 @@ export default {
             '<p class="dPopM_w">部门下还存在下级部门或员工，无法删除。</p>'
         });
       }
-      console.log(this.dept.subDepts.length);
+      if(__this.DEBUG){
+        console.log(this.dept.subDepts.length);
+      }
     }
   },
   computed: {

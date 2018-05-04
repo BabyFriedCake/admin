@@ -4,35 +4,35 @@
         <p class="name_w">管理平台</p>
         <div class="headerR_w">
             <div class="userB_w">
-                <img class="uesImg_w" src="../assets/images/userImgMW.png" alt=""/>
-                <p class="userName_w">肉小虎 &lt;rouxiaohu@troila.com&gt;</p>
+                <img class="uesImg_w " :src="headImg" alt=""/>
+                <p class="userName_w">{{$store.state.user.name}}</p>
                 <i class="userI_w"></i>
                 <div class="c-both"></div>
             </div>
             <div class="userP_w">
                 <dl>
-                    <dt><img src="../assets/images/userImgLMW.png" alt=""/></dt>
-                    <dd>肉小虎</dd>
-                    <dd>暂未设置企业名称暂未设置企业名称暂未设置企业名称</dd>
+                    <dt><img :src="headImg" alt=""/></dt>
+                    <dd>{{$store.state.user.name}}</dd>
+                    <dd>{{enterPriseName}}</dd>
                 </dl>
                 <div class="headerBtn_w">
-                    <a class="mdfPwd_w" href="javascript:;">修改密码</a>
-                    <a class="exit_w mt-10" href="javascript:;">退出</a>
+                    <a class="mdfPwd_w" href="javascript:;" @click="editPwd">修改密码</a>
+                    <a class="exit_w mt-10" href="javascript:;" @click="logout">退出</a>
                 </div>
             </div>
         </div>
         <div class="pop3_w hide">
             <ul class="telNumB_w">
                 <li class="mb-20">
-                    <span>原密码</span><input class="input_w" type="password" value=""/>
-                    <p class="error_w">原始密码输入有误</p>
+                    <span>原密码</span><input class="input_w" type="password" id="resetOldPassword"/>
+                    <p class="error_w hide">原始密码输入有误</p>
                 </li>
                 <li class="mb-20">
-                    <span>新密码</span><input class="input_w" type="password" value=""/>
+                    <span>新密码</span><input class="input_w" type="password" id="resetNewPassword"/>
                 </li>
                 <li>
-                    <span>确认密码</span><input class="input_w" type="password" value=""/>
-                    <p class="error_w">两次密码输入不一致</p>
+                    <span>确认密码</span><input class="input_w" type="password" id="resetNewPassword2"/>
+                    <p class="error_w hide">两次密码输入不一致</p>
                 </li>
             </ul>
         </div>
@@ -40,7 +40,99 @@
 </template>
 <script>
 export default {
-  name:'DomainHeader'
+    name:'DomainHeader',
+    methods:{
+        editPwd(){
+            var __this = this;
+            $("#resetOldPassword").val("");
+            $("#resetNewPassword").val("");
+            $("#resetNewPassword2").val("");
+            //修改密码弹窗
+            layer.open({
+                type: 1,
+                skin: "pop_w",
+                title: "修改密码",
+                area: ["580px", "auto"],
+                btn: ["确认", "取消"],
+                content: $(".pop3_w"),
+                success: function(layero) {
+                    var mask = $(".layui-layer-shade");
+                    mask.appendTo(layero.parent());
+                },
+                btn1: function(index, layero){
+                    var resetOldPassword = $("#resetOldPassword").val();
+                    if(resetOldPassword==""){
+                        layer.msg("请填写原密码",{icon:7,time:2000});
+                        return;
+                    }
+                    var resetNewPassword = $("#resetNewPassword").val();
+                    if(resetNewPassword==""){
+                        layer.msg("请填写新密码",{icon:7,time:2000});
+                        return;
+                    }
+                    if(!__this.checkPwd(resetNewPassword)){
+                        layer.msg("密码应由字母、数字及下划线组成的6-20位字符",{icon:7,time:2000});
+                        return;
+                    }
+                    if(resetOldPassword==resetNewPassword){
+                        layer.msg("新密码不能和旧密码一样",{icon:7,time:2000});
+                        return;
+                    }
+                    var resetNewPassword2 = $("#resetNewPassword2").val();
+                    if(resetNewPassword2==""){
+                        layer.msg("请确认新密码",{icon:7,time:2000});
+                        return;
+                    }
+                    if(resetNewPassword!=resetNewPassword2){
+                        layer.msg("两次新密码输入不一致",{icon:7,time:2000});
+                        return;
+                    }
+
+                    __this.$axios.put(process.env.API_SERVER+"/api/account/password",{
+                        oldPassword:resetOldPassword,
+                        newPassword:resetNewPassword
+                    })
+                    .then(res=>{
+                        layer.closeAll();
+                        $(".pop3_w").hide();
+                        layer.msg("操作成功！", {icon:1,time:2000,skin:'Smsg_w'});
+                    });
+
+                },
+                btn2: function(index, layero){
+                    layer.closeAll();
+                    $(".pop3_w").hide();
+                }
+            });
+        },
+        logout(){
+            this.$axios.post(process.env.API_SERVER+"/api/logout")
+            .then(res=>{
+                    window.location.href = "/";
+                    sessionStorage.clear();
+                    window.location.reload();
+                });
+        },
+        checkPwd(pwd){
+        var reg = /^[A-Za-z0-9_]{6,20}$/;
+        return pwd.match(reg);
+    }
+  },
+  computed: {
+    headImg() {
+      var ImgUrl = process.env.API_SERVER + this.$store.state.user.headImg;
+      // 默认头像
+      var DefaultImg = require("../assets/images/userImgLMW.png");
+      if (!ImgUrl) {
+        return DefaultImg;
+      } else {
+        return ImgUrl;
+      }
+    },
+    enterPriseName(){
+        return this.$store.getters.getItemWithSessionStorage("enterpriseInfo")?this.$store.getters.getItemWithSessionStorage("enterpriseInfo").name:"未知";
+    }
+  },
 }
 </script>
 <style>

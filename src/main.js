@@ -1,5 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from './store/index.js'
@@ -17,8 +19,12 @@ import Log from './page/index/Log.vue'
 import MemberManage from './page/index/MemberManage.vue'
 import Paper from './page/index/Paper.vue'
 import Spam from './page/index/Spam.vue'
+import SpamType from './page/index/subcomponents/SpamType.vue'
+import Dept from './page/index/subcomponents/MemberDept.vue'
+import Members from './page/index/subcomponents/MemberList.vue'
+import LoginLog from './page/index/subcomponents/LoginLog.vue'
+import OperateLog from './page/index/subcomponents/OperateLog.vue'
 import axios from './utils/ajax'
-
 
 //配置表单验证组件
 import VeeValidate, { Validator }from 'vee-validate'
@@ -30,7 +36,8 @@ Vue.config.productionTip = false
 
 const router = new VueRouter({
   mode: 'history',
-  base: __dirname,
+  // base: process.env.ROOT_PATH,
+  base:'/enterprise/',
   routes: [
     {
       path: '/',
@@ -63,11 +70,40 @@ const router = new VueRouter({
         },
         {
           path: '/log',
-          component: Log
+          component: Log,
+          children:[
+            {
+              path:"login",
+              component:LoginLog
+            },
+            {
+              path:"operation",
+              component:OperateLog
+            },
+            {
+              path:"/log",
+              redirect:"login"
+            }
+          ]
         },
         {
           path: '/memberManage',
-          component: MemberManage
+          component: MemberManage,
+          children:[
+            {
+              path: 'dept',
+              component:Dept
+            },
+            {
+              path:'member',
+              component:Members
+            },
+            {
+              path:"/memberManage",
+              redirect:'dept'
+            }
+            
+          ]
         },
         {
           path: '/paper',
@@ -76,6 +112,10 @@ const router = new VueRouter({
         {
           path: '/spam',
           component: Spam
+        },
+        {
+          path : '/spamType/:isAddress/:isWhite',
+          component : SpamType
         }
       ]
     }
@@ -101,6 +141,12 @@ router.beforeEach((to,from,next)=>{
 Vue.prototype.$axios = axios;
 var bus = new Vue({});
 Vue.prototype.bus=bus;
+
+var debug = false;
+if (process.env.NODE_ENV == "development") {
+  debug = true;
+}
+Vue.prototype.DEBUG = debug;
 /* eslint-disable no-new */
 new Vue({
   router,
